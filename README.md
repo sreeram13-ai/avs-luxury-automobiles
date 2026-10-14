@@ -4,7 +4,7 @@ The frontend is a static `index.html` suitable for GitHub Pages. The AI concierg
 
 ## Publish the static site
 
-The GitHub Actions workflow deploys the site whenever a commit reaches `main`. In the repository's **Settings → Pages**, select **GitHub Actions** as the build and deployment source. The first deployment will then run automatically after the workflow is pushed. The public site URL will appear in the workflow run and Pages settings.
+In the repository's **Settings → Pages**, choose **Deploy from a branch**, select `main` and the `/ (root)` folder, then save. GitHub will publish `index.html` at the Pages URL shown in those settings.
 
 ## Configure the concierge
 
