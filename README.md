@@ -1,4 +1,4 @@
-# AVS luxury automobile site
+# avs-luxury-automobiles
 
 The frontend is a static `index.html` suitable for GitHub Pages. The AI concierge uses a Vercel serverless function at `api/concierge.js`; the browser never receives the OpenAI API key.
 
