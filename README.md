@@ -11,9 +11,9 @@ In the repository's **Settings → Pages**, choose **Deploy from a branch**, sel
 1. Deploy this repository to Vercel so it can run the `api/concierge.js` function (GitHub Pages serves only the static frontend).
 2. In the Vercel project settings, add these environment variables for the production environment:
    - `OPENAI_API_KEY`: your OpenAI API key. Add it in Vercel's environment settings; never put a real key in this repository or in the HTML.
-   - `AVS_ALLOWED_ORIGIN`: the exact website origin, such as `https://your-username.github.io` (no path or trailing slash). For a custom domain, use its `https://` origin instead.
+   - `AVS_ALLOWED_ORIGIN`: `https://sreeram13-ai.github.io` (no path or trailing slash). For a custom domain, use its `https://` origin instead.
    - `OPENAI_MODEL` (optional): model name; defaults to `gpt-4.1-mini`.
-3. After deploying, set the `avs-concierge-endpoint` meta tag in `index.html` to the deployed function URL, for example `https://your-project.vercel.app/api/concierge`, then publish the updated HTML to GitHub Pages.
+3. The production function URL is `https://avs-luxury-automobiles.vercel.app/api/concierge`; it is configured in the `avs-concierge-endpoint` meta tag in `index.html`. Publish that HTML to GitHub Pages after changes.
 4. In Vercel, configure usage limits and rate limiting before promoting the endpoint to production. The origin check is a browser CORS restriction, not authentication; a public endpoint can still receive direct requests.
 
 The function sends the chat to OpenAI's Responses API with `store: false`, restricts requests to the configured origin, and bounds the message sizes and conversation length. The concierge only receives chat messages; it does not receive the enquiry form's contact details. Users are told that messages are processed by OpenAI.
