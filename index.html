@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10110f">
   <meta name="description" content="A considered collection of the world's finest automobiles, curated by AVS.">
-  <meta name="avs-concierge-endpoint" content="https://avs-luxury-automobiles.vercel.app/api/concierge">
   <title>AVS — Luxury automobiles</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -513,18 +512,18 @@
       <div class="footer-links"><a href="#collection">Collection</a><a href="#contact">Contact</a><a href="#home">Instagram ↗</a></div>
     </div>
   </footer>
-  <button class="concierge-launcher" id="concierge-launcher" type="button" aria-haspopup="dialog" aria-controls="concierge-dialog">✦ &nbsp; AI concierge</button>
+  <button class="concierge-launcher" id="concierge-launcher" type="button" aria-haspopup="dialog" aria-controls="concierge-dialog">✦ &nbsp; Smart guide</button>
   <dialog class="concierge-dialog" id="concierge-dialog" aria-labelledby="concierge-title">
     <div class="concierge-header">
       <div>
         <div class="concierge-kicker">Your personal guide</div>
-        <h2 class="concierge-title" id="concierge-title">The AVS concierge</h2>
-        <p class="concierge-subtitle">A thoughtful place to begin your search.</p>
+        <h2 class="concierge-title" id="concierge-title">The AVS smart guide</h2>
+        <p class="concierge-subtitle">Find a car in the AVS collection to match your brief.</p>
       </div>
       <button class="concierge-close" id="concierge-close" type="button" aria-label="Close concierge">×</button>
     </div>
     <div class="concierge-thread" id="concierge-thread" role="log" aria-live="polite" aria-relevant="additions">
-      <div class="concierge-message assistant"><p>Welcome. Tell me how you like to drive, and I’ll help you explore the AVS collection. I can discuss listed specifications, while the AVS team confirms current availability and pricing.</p></div>
+      <div class="concierge-message assistant"><p>Welcome. Tell me what you’re looking for and I’ll match your preferences to the cars in our collection. I can help with body styles and listed specifications; the AVS team can confirm current availability and pricing.</p></div>
     </div>
     <div class="concierge-suggestions" id="concierge-suggestions">
       <button class="concierge-suggestion" type="button">A refined car for long drives</button>
@@ -535,7 +534,7 @@
       <input class="concierge-input" id="concierge-input" name="message" maxlength="1000" autocomplete="off" placeholder="Tell me what you have in mind…" aria-label="Message the AVS concierge" required>
       <button class="concierge-send" id="concierge-send" type="submit" aria-label="Send message">↑</button>
     </form>
-    <p class="concierge-disclosure">AI-generated guidance, based on the cars shown here. Messages are processed by OpenAI to reply. Please don’t share sensitive personal information.</p>
+    <p class="concierge-disclosure">A simple, on-page guide matches your words to the listed collection. Messages stay in your browser and aren’t sent to an AI service. Availability and pricing are confirmed by AVS.</p>
   </dialog>
   <script>
     const filterButtons = document.querySelectorAll(".filter");
@@ -598,8 +597,67 @@
     const conciergeSend = document.querySelector("#concierge-send");
     const conciergeThread = document.querySelector("#concierge-thread");
     const conciergeSuggestions = document.querySelector("#concierge-suggestions");
-    const conciergeEndpoint = document.querySelector('meta[name="avs-concierge-endpoint"]').content.trim() || "/api/concierge";
-    const conciergeMessages = [];
+    const conciergeInventory = Array.from(document.querySelectorAll(".car-card"), (card) => ({
+      name: card.querySelector("h3").textContent.trim(),
+      category: card.dataset.category,
+      type: card.querySelector(".car-type").textContent.trim(),
+      specs: Array.from(card.querySelectorAll(".car-specs span"), (spec) => spec.textContent.trim())
+    }));
+    const normalizeConciergeText = (text) => text.toLowerCase().replace(/[^a-z0-9. -]/g, " ").replace(/\s+/g, " ").trim();
+    const conciergeHasAny = (text, words) => words.some((word) => text.includes(word));
+    const conciergeDescribeCar = (car) => `${car.name} — ${car.type}; ${car.specs.join(", ")}.`;
+
+    const getConciergeReply = (message) => {
+      const text = normalizeConciergeText(message);
+      const mentionedCars = conciergeInventory.filter((car) => text.includes(normalizeConciergeText(car.name)));
+      const isComparison = conciergeHasAny(text, ["compare", "comparison", "difference", "versus", " vs "]);
+
+      if (conciergeHasAny(text, ["price", "cost", "budget", "financ", "payment", "available", "availability", "in stock"])) {
+        return "The listings show prices on request, and I can’t verify live availability or financing. Please contact the AVS team for current details.";
+      }
+
+      const requestedCategory = conciergeHasAny(text, ["suv", "family", "space", "utility"])
+        ? "suv"
+        : conciergeHasAny(text, ["sport", "sports", "performance", "track", "fast"])
+          ? "sports"
+          : conciergeHasAny(text, ["long drive", "long trip", "touring", "grand tour", "comfortable", "comfort", "journey"])
+            ? "grand-tourer"
+            : null;
+      const matchingCars = requestedCategory
+        ? conciergeInventory.filter((car) => car.category === requestedCategory)
+          : [];
+
+      if (isComparison) {
+          const compareCars = mentionedCars.length > 1
+            ? mentionedCars
+            : matchingCars.length
+              ? matchingCars
+              : conciergeInventory;
+          const followUp = mentionedCars.length > 1
+            ? "AVS can confirm availability and pricing for either model."
+            : "Which models would you like to compare more closely?";
+          return `Here are the listed details${requestedCategory ? ` for ${requestedCategory.replace("-", " ")} models` : ""}:\n${compareCars.map(conciergeDescribeCar).join("\n")}\nAll prices are on request. ${followUp}`;
+      }
+
+      if (mentionedCars.length) {
+          return `${conciergeDescribeCar(mentionedCars[0])} The listing shows price on request; please contact AVS to confirm current availability and details.`;
+      }
+
+      const requestedEngine = text.match(/\b(?:\d\.\d\s?l?|v8|v12)\b/);
+      const engineMatches = requestedEngine
+        ? conciergeInventory.filter((car) => car.specs.some((spec) => normalizeConciergeText(spec).includes(requestedEngine[0].replace(" ", ""))))
+        : [];
+      const recommendations = engineMatches.length ? engineMatches : matchingCars;
+      if (recommendations.length) {
+        return `Based on your note, take a look at:\n${recommendations.slice(0, 3).map(conciergeDescribeCar).join("\n")}\nWhich one would you like to explore? AVS can confirm live availability and pricing.`;
+      }
+
+      if (conciergeHasAny(text, ["hello", "hi", "hey", "good morning", "good afternoon"])) {
+        return "Hello. What matters most to you: a sports car, a grand tourer, or an SUV? You can also ask me to compare the cars or share a model name.";
+      }
+
+      return "I can help you explore sports cars, grand tourers, and SUVs, compare the listed specifications, or look up a model in our collection. What kind of drive or vehicle are you looking for?";
+    };
 
     const appendConciergeMessage = (role, text) => {
       const message = document.createElement("div");
@@ -624,44 +682,15 @@
         conciergeForm.requestSubmit();
       });
     });
-    conciergeForm.addEventListener("submit", async (event) => {
+    conciergeForm.addEventListener("submit", (event) => {
       event.preventDefault();
       const text = conciergeInput.value.trim();
       if (!text || conciergeSend.disabled) return;
 
-      conciergeMessages.push({ role: "user", content: text });
       appendConciergeMessage("user", text);
       conciergeInput.value = "";
-      conciergeSend.disabled = true;
-      conciergeInput.disabled = true;
-      conciergeSuggestions.querySelectorAll("button").forEach((button) => { button.disabled = true; });
-      const thinking = appendConciergeMessage("assistant", "Considering your brief…");
-
-      try {
-        const response = await fetch(conciergeEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages: conciergeMessages.slice(-10) })
-        });
-        const result = await response.json();
-        if (!response.ok) {
-          thinking.querySelector("p").textContent = typeof result.error === "string"
-            ? result.error
-            : "The concierge is unavailable right now. Please call AVS for assistance.";
-        } else if (typeof result.reply !== "string" || !result.reply.trim()) {
-          thinking.querySelector("p").textContent = "The concierge could not prepare a reply. Please try again.";
-        } else {
-          conciergeMessages.push({ role: "assistant", content: result.reply });
-          thinking.querySelector("p").textContent = result.reply;
-        }
-      } catch {
-        thinking.querySelector("p").textContent = "The concierge is unavailable right now. Please call AVS for assistance.";
-      } finally {
-        conciergeSend.disabled = false;
-        conciergeInput.disabled = false;
-        conciergeSuggestions.querySelectorAll("button").forEach((button) => { button.disabled = false; });
-        conciergeInput.focus();
-      }
+      appendConciergeMessage("assistant", getConciergeReply(text));
+      conciergeInput.focus();
     });
   </script>
 </body>
