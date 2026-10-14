@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10110f">
+  <meta name="description" content="A considered collection of the world's finest automobiles, curated by AVS.">
+  <meta name="avs-concierge-endpoint" content="">
+  <title>AVS — Luxury automobiles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f5f2eb;
+      --muted: #aaa79f;
+      --gold: #c7a66a;
+      --line: rgba(255, 255, 255, .14);
+      --panel: #171815;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      background: #10110f;
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+    .wrap { width: min(1320px, calc(100% - 80px)); margin: 0 auto; }
+
+    .topbar {
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 88px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,.16);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; letter-spacing: .24em; font-size: 14px; font-weight: 700; }
+    .brand-mark { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid var(--gold); color: var(--gold); font-family: var(--serif); font-size: 17px; transform: rotate(45deg); }
+    .brand-mark span { transform: rotate(-45deg); }
+    .nav-links { display: flex; gap: 38px; align-items: center; color: #dfddd7; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+    .nav-links a, .footer-links a { transition: color .2s; }
+    .nav-links a:hover, .footer-links a:hover { color: var(--gold); }
+    .nav-cta, .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 22px;
+      border: 1px solid var(--gold);
+      color: var(--ink);
+      background: transparent;
+      letter-spacing: .12em;
+      font-size: 10px;
+      text-transform: uppercase;
+      transition: background .2s, color .2s;
+      cursor: pointer;
+    }
+    .nav-cta:hover, .button:hover { background: var(--gold); color: #12120f; }
+    .menu-toggle { display: none; border: 0; color: var(--ink); background: transparent; font-size: 24px; cursor: pointer; }
+
+    .hero {
+      position: relative;
+      min-height: 760px;
+      height: min(900px, 100svh);
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(10,11,10,.92) 0%, rgba(10,11,10,.74) 39%, rgba(10,11,10,.12) 100%),
+        linear-gradient(0deg, #10110f 0%, transparent 25%),
+        url("https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2200&q=90") center 57% / cover;
+    }
+    .hero-content { position: relative; z-index: 1; padding-top: 65px; }
+    .eyebrow { color: var(--gold); font-size: 10px; letter-spacing: .28em; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 680px; margin: 22px 0 20px; font: 500 clamp(54px, 7.5vw, 104px)/.98 var(--serif); letter-spacing: -.045em; }
+    h1 em { color: var(--gold); font-weight: 500; }
+    .hero-copy { max-width: 420px; color: #c4c2bc; font-size: 14px; line-height: 1.85; }
+    .hero-actions { display: flex; gap: 24px; align-items: center; margin-top: 35px; }
+    .text-link { color: var(--ink); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
+    .text-link span { color: var(--gold); margin-left: 8px; font-size: 16px; }
+    .hero-index { position: absolute; right: 0; bottom: 112px; display: flex; align-items: center; gap: 12px; color: #d0cdc5; font-size: 10px; letter-spacing: .16em; }
+    .hero-index::before { content: ""; width: 45px; height: 1px; background: var(--gold); }
+    .hero-scroll { position: absolute; left: 0; bottom: 64px; color: #b6b3aa; font-size: 9px; letter-spacing: .22em; text-transform: uppercase; writing-mode: vertical-rl; }
+
+    .intro { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; padding: 112px 0 105px; align-items: end; }
+    .intro h2, .section-heading h2 { margin: 18px 0 0; font: 500 clamp(37px, 5vw, 58px)/1.1 var(--serif); letter-spacing: -.03em; }
+    .intro p { max-width: 490px; margin-bottom: 4px; color: var(--muted); font-size: 13px; line-height: 1.9; }
+
+    .collection { padding: 85px 0 104px; background: #171815; }
+    .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 40px; }
+    .section-heading h2 { margin-bottom: 0; }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter {
+      padding: 10px 15px;
+      border: 1px solid var(--line);
+      color: #c4c1b9;
+      background: transparent;
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .filter.active, .filter:hover { border-color: var(--gold); color: var(--gold); }
+    .cars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .car-card { min-width: 0; border: 1px solid rgba(255,255,255,.09); background: #111210; transition: transform .25s, border-color .25s; }
+    .car-card:hover { transform: translateY(-5px); border-color: rgba(199,166,106,.55); }
+    .car-card[hidden] { display: none; }
+    .car-image { position: relative; height: 230px; overflow: hidden; background: #252621; }
+    .car-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .car-card:hover .car-image img { transform: scale(1.04); }
+    .badge { position: absolute; top: 16px; left: 16px; padding: 7px 10px; color: #f8f5ee; background: rgba(16,17,15,.74); font-size: 9px; letter-spacing: .15em; text-transform: uppercase; }
+    .car-info { padding: 21px 21px 20px; }
+    .car-type { color: var(--gold); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
+    .car-info h3 { margin: 9px 0 18px; font: 500 24px var(--serif); }
+    .car-specs { display: flex; justify-content: space-between; gap: 12px; padding: 15px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); color: #c0beb7; font-size: 10px; }
+    .car-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 17px; }
+    .price { font: 500 17px var(--serif); }
+    .details-link { color: var(--gold); font-size: 9px; letter-spacing: .13em; text-transform: uppercase; }
+    .collection-count { margin: 25px 0 0; color: var(--muted); font-size: 11px; }
+
+    .experience { display: grid; grid-template-columns: 1fr 1fr; min-height: 510px; }
+    .experience-photo { min-height: 440px; background: url("https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1400&q=85") center / cover; }
+    .experience-copy { display: flex; align-items: center; padding: 70px clamp(38px, 8vw, 120px); background: #c6a873; color: #141410; }
+    .experience-copy .eyebrow { color: #51432e; }
+    .experience-copy h2 { margin: 20px 0; font: 500 clamp(38px, 4vw, 55px)/1.08 var(--serif); }
+    .experience-copy p { max-width: 390px; color: #413a2e; font-size: 13px; line-height: 1.85; }
+    .experience-copy .button { margin-top: 12px; border-color: #171713; color: #171713; }
+    .experience-copy .button:hover { background: #171713; color: #f4f0e7; }
+
+    .promise { padding: 106px 0; text-align: center; }
+    .promise h2 { max-width: 700px; margin: 20px auto 18px; font: 500 clamp(36px, 5vw, 58px)/1.1 var(--serif); }
+    .promise > .wrap > p { max-width: 520px; margin: 0 auto; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .promise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 65px; text-align: left; }
+    .promise-item { padding-top: 22px; border-top: 1px solid var(--gold); }
+    .promise-item .number { color: var(--gold); font: 500 19px var(--serif); }
+    .promise-item h3 { margin: 17px 0 9px; font: 500 21px var(--serif); }
+    .promise-item p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
+
+    .contact { padding: 88px 0; background: #1a1b17; }
+    .contact-layout { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(40px, 8vw, 110px); align-items: start; }
+    .contact h2 { margin: 12px 0 16px; font: 500 clamp(34px, 4vw, 48px)/1.1 var(--serif); }
+    .contact-copy > p { color: var(--muted); font-size: 12px; line-height: 1.8; }
+    .contact-copy .phone { color: var(--ink); font-size: 13px; }
+    .inquiry-form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field { display: grid; gap: 8px; }
+    .field-full { grid-column: 1 / -1; }
+    .field label { color: #c8c4bb; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      color: var(--ink);
+      background: #111210;
+      font-size: 13px;
+    }
+    .field textarea { min-height: 100px; resize: vertical; }
+    .field select { color-scheme: dark; }
+    .form-submit { justify-self: start; }
+    .form-note, .form-status { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
+    .form-status { min-height: 1.7em; color: var(--gold); }
+
+    footer { padding: 30px 0; color: #8c8a83; font-size: 10px; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer-links { display: flex; gap: 23px; }
+
+    .concierge-launcher {
+      position: fixed;
+      z-index: 8;
+      right: 26px;
+      bottom: 24px;
+      min-height: 54px;
+      padding: 0 22px;
+      border: 1px solid #e1c48e;
+      color: #15140f;
+      background: #c7a66a;
+      box-shadow: 0 8px 32px rgba(0,0,0,.35);
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .concierge-launcher:hover { background: #dfc18a; transform: translateY(-2px); }
+    .concierge-dialog {
+      position: fixed;
+      inset: auto 26px 92px auto;
+      display: none;
+      flex-direction: column;
+      width: min(420px, calc(100vw - 32px));
+      height: min(630px, calc(100dvh - 120px));
+      max-height: 630px;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid rgba(199,166,106,.65);
+      color: var(--ink);
+      background: #151613;
+      box-shadow: 0 20px 70px rgba(0,0,0,.55);
+    }
+    .concierge-dialog[open] { display: flex; }
+    .concierge-dialog::backdrop { background: transparent; }
+    .concierge-header { display: flex; justify-content: space-between; gap: 16px; padding: 21px 22px 18px; border-bottom: 1px solid var(--line); }
+    .concierge-kicker { color: var(--gold); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
+    .concierge-title { margin: 7px 0 0; font: 500 22px var(--serif); }
+    .concierge-subtitle { margin: 6px 0 0; color: var(--muted); font-size: 11px; }
+    .concierge-close { align-self: flex-start; padding: 3px 7px; border: 0; color: var(--muted); background: transparent; font-size: 22px; cursor: pointer; }
+    .concierge-thread { flex: 1; display: flex; flex-direction: column; gap: 13px; padding: 20px; overflow-y: auto; overscroll-behavior: contain; }
+    .concierge-message { max-width: 90%; padding: 12px 14px; color: #e3e0d8; background: #22231f; font-size: 12px; line-height: 1.7; white-space: pre-wrap; }
+    .concierge-message p { margin: 0; }
+    .concierge-message.assistant { align-self: flex-start; border-left: 2px solid var(--gold); }
+    .concierge-message.user { align-self: flex-end; color: #171611; background: #c7a66a; }
+    .concierge-suggestions { display: flex; flex-wrap: wrap; gap: 7px; padding: 0 20px 14px; }
+    .concierge-suggestion { padding: 8px 10px; border: 1px solid var(--line); color: #d8d4ca; background: transparent; font-size: 10px; cursor: pointer; }
+    .concierge-suggestion:hover { border-color: var(--gold); color: var(--gold); }
+    .concierge-form { display: flex; gap: 8px; padding: 13px 16px; border-top: 1px solid var(--line); }
+    .concierge-input { flex: 1; min-width: 0; padding: 12px; border: 1px solid var(--line); border-radius: 0; color: var(--ink); background: #10110f; font-size: 12px; }
+    .concierge-send { width: 45px; border: 1px solid var(--gold); color: var(--gold); background: transparent; font-size: 18px; cursor: pointer; }
+    .concierge-send:hover:not(:disabled) { color: #15140f; background: var(--gold); }
+    .concierge-send:disabled, .concierge-input:disabled, .concierge-suggestion:disabled { opacity: .55; cursor: wait; }
+    .concierge-disclosure { margin: 0; padding: 0 18px 14px; color: #9d9a91; font-size: 9px; line-height: 1.6; }
+
+    @media (max-width: 900px) {
+      .wrap { width: min(100% - 48px, 720px); }
+      .nav-links { gap: 20px; }
+      .nav-cta { display: none; }
+      .hero { min-height: 690px; background-position: 58% center; }
+      .intro { gap: 35px; padding: 85px 0; }
+      .cars { grid-template-columns: repeat(2, 1fr); }
+      .section-heading { align-items: start; flex-direction: column; }
+      .experience-copy { padding: 55px 40px; }
+      .contact-layout { grid-template-columns: 1fr 1.2fr; gap: 38px; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: calc(100% - 40px); }
+      .topbar { height: 72px; }
+      .menu-toggle { display: block; }
+      .nav-links {
+        position: absolute;
+        top: 71px;
+        left: 0;
+        right: 0;
+        display: none;
+        padding: 22px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 22px;
+        background: #141512;
+        border-bottom: 1px solid var(--line);
+      }
+      .nav-links.open { display: flex; }
+      .hero { min-height: 720px; height: 92svh; background-position: 61% center; }
+      .hero-content { padding-top: 35px; }
+      .hero-copy { max-width: 330px; font-size: 13px; }
+      .hero-actions { align-items: flex-start; flex-direction: column; gap: 20px; }
+      .hero-index { bottom: 75px; }
+      .hero-scroll { bottom: 34px; }
+      .intro { grid-template-columns: 1fr; gap: 24px; padding: 72px 0; }
+      .collection { padding: 70px 0; }
+      .cars { grid-template-columns: 1fr; gap: 15px; }
+      .car-image { height: 225px; }
+      .experience { grid-template-columns: 1fr; }
+      .experience-photo { min-height: 300px; }
+      .experience-copy { padding: 58px 25px; }
+      .promise { padding: 77px 0; }
+      .promise-grid { grid-template-columns: 1fr; gap: 29px; margin-top: 45px; }
+      .contact { padding: 68px 0; }
+      .contact-layout { grid-template-columns: 1fr; gap: 28px; }
+      .inquiry-form { grid-template-columns: 1fr; }
+      .field-full { grid-column: auto; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+      .footer-links { flex-wrap: wrap; }
+      .concierge-launcher { right: 16px; bottom: 16px; min-height: 50px; padding: 0 17px; }
+      .concierge-dialog { inset: auto 10px 78px auto; width: calc(100vw - 20px); height: min(650px, calc(100dvh - 100px)); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="AVS home">
+        <span class="brand-mark"><span>A</span></span><span>AVS</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-links">☰</button>
+      <div class="nav-links" id="nav-links">
+        <a href="#collection">Collection</a>
+        <a href="#experience">Our world</a>
+        <a href="#promise">The AVS way</a>
+      </div>
+      <a class="nav-cta" href="#contact">Speak with an advisor</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="wrap hero-content">
+        <div class="eyebrow">The art of the exceptional</div>
+        <h1>For the love<br>of <em>the drive.</em></h1>
+        <p class="hero-copy">A considered collection of the world's finest automobiles. Curated for those who know the difference.</p>
+        <div class="hero-actions">
+          <a class="button" href="#collection">Explore the collection <span aria-hidden="true">&nbsp; ↗</span></a>
+          <a class="text-link" href="#experience">Discover AVS <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <a class="hero-scroll" href="#collection">Scroll to explore</a>
+      <div class="hero-index">01 / 03 &nbsp; THE GRAND TOURER</div>
+    </section>
+
+    <section class="intro wrap">
+      <div>
+        <div class="eyebrow">A different kind of drive</div>
+        <h2>Not just a car.<br>A point of view.</h2>
+      </div>
+      <p>Some things are chosen. Others simply feel inevitable. At AVS, every automobile is selected for its character, its craft, and the feeling it leaves long after the road ends.</p>
+    </section>
+
+    <section class="collection" id="collection">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Luxury cars from ₹1 Cr to ₹10 Cr</div>
+            <h2>The collection</h2>
+          </div>
+          <div class="filters" role="group" aria-label="Filter cars">
+            <button class="filter active" type="button" data-filter="all" aria-pressed="true">All cars</button>
+            <button class="filter" type="button" data-filter="grand-tourer" aria-pressed="false">Grand tourers</button>
+            <button class="filter" type="button" data-filter="sports" aria-pressed="false">Sports</button>
+            <button class="filter" type="button" data-filter="suv" aria-pressed="false">SUV</button>
+          </div>
+        </div>
+        <div class="cars">
+          <article class="car-card" data-category="grand-tourer">
+            <div class="car-image">
+              <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1000&q=85" alt="Silver Porsche 911 on a mountain road" loading="lazy">
+              <span class="badge">Just arrived</span>
+            </div>
+            <div class="car-info">
+              <div class="car-type">Grand tourer</div>
+              <h3>Porsche 911 Carrera</h3>
+              <div class="car-specs"><span>2024</span><span>Automatic</span><span>3.0L</span></div>
+              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Porsche 911 Carrera">Enquire ↗</a></div>
+            </div>
+          </article>
+          <article class="car-card" data-category="sports">
+            <div class="car-image">
+              <img src="https://images.unsplash.com/photo-1614200187524-dc4b892acf16?auto=format&fit=crop&w=1000&q=85" alt="Sleek red luxury sports car" loading="lazy">
+              <span class="badge">Rare find</span>
+            </div>
+            <div class="car-info">
+              <div class="car-type">Pure sports</div>
+              <h3>Ferrari Roma</h3>
+              <div class="car-specs"><span>2023</span><span>Automatic</span><span>3.9L V8</span></div>
+              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Ferrari Roma">Enquire ↗</a></div>
+            </div>
+          </article>
+          <article class="car-card" data-category="suv">
+            <div class="car-image">
+              <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1000&q=85" alt="Luxury SUV parked in a dramatic landscape" loading="lazy">
+              <span class="badge">AVS select</span>
+            </div>
+            <div class="car-info">
+              <div class="car-type">Sport utility</div>
+              <h3>Range Rover Autobiography</h3>
+              <div class="car-specs"><span>2024</span><span>Automatic</span><span>4.4L V8</span></div>
+              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Range Rover Autobiography">Enquire ↗</a></div>
+            </div>
+          </article>
+          <article class="car-card" data-category="grand-tourer">
+            <div class="car-image">
+              <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1000&q=85" alt="Elegant luxury coupe in a studio" loading="lazy">
+            </div>
+            <div class="car-info">
+              <div class="car-type">Grand tourer</div>
+              <h3>Bentley Continental GT</h3>
+              <div class="car-specs"><span>2023</span><span>Automatic</span><span>4.0L V8</span></div>
+              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Bentley Continental GT">Enquire ↗</a></div>
+            </div>
+          </article>
+          <article class="car-card" data-category="sports">
+            <div class="car-image">
+              <img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1000&q=85" alt="Black luxury sports coupe in a city" loading="lazy">
+            </div>
+            <div class="car-info">
+              <div class="car-type">Pure sports</div>
+              <h3>Aston Martin Vantage</h3>
+              <div class="car-specs"><span>2024</span><span>Automatic</span><span>4.0L V8</span></div>
+              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Aston Martin Vantage">Enquire ↗</a></div>
+            </div>
+          </article>
+          <article class="car-card" data-category="suv">
+            <div class="car-image">
+              <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=85" alt="Refined dark luxury vehicle" loading="lazy">
+            </div>
+            <div class="car-info">
+              <div class="car-type">Sport utility</div>
+              <h3>Mercedes-Benz G-Class</h3>
+              <div class="car-specs"><span>2024</span><span>Automatic</span><span>4.0L V8</span></div>
+              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Mercedes-Benz G-Class">Enquire ↗</a></div>
+            </div>
+          </article>
+        </div>
+        <p class="collection-count" aria-live="polite">Showing all 6 automobiles</p>
+      </div>
+    </section>
+
+    <section class="experience" id="experience">
+      <div class="experience-photo" role="img" aria-label="A luxury car on an open road"></div>
+      <div class="experience-copy">
+        <div>
+          <div class="eyebrow">More than ownership</div>
+          <h2>The road is yours.<br>So is the feeling.</h2>
+          <p>From the first conversation to the first open road, your experience is shaped around you. Personal introductions, considered guidance, and a level of care that never clocks off.</p>
+          <a class="button" href="#contact">Experience AVS ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="promise" id="promise">
+      <div class="wrap">
+        <div class="eyebrow">The AVS way</div>
+        <h2>Discerning by nature.<br>Personal by design.</h2>
+        <p>Every detail matters. That's why the experience is as thoughtfully considered as the cars themselves.</p>
+        <div class="promise-grid">
+          <article class="promise-item">
+            <span class="number">01</span>
+            <h3>Personally curated</h3>
+            <p>Each car is hand-selected for provenance, condition, and the kind of character you can't put on a spec sheet.</p>
+          </article>
+          <article class="promise-item">
+            <span class="number">02</span>
+            <h3>Quietly effortless</h3>
+            <p>From tailored finance to delivery at your door, we take care of the details before you have to ask.</p>
+          </article>
+          <article class="promise-item">
+            <span class="number">03</span>
+            <h3>Always in good company</h3>
+            <p>Your relationship with AVS begins with a car. It never has to end there.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="wrap contact-layout">
+        <div class="contact-copy">
+          <div class="eyebrow">Your next chapter</div>
+          <h2>Let's find your drive.</h2>
+          <p>Luxury cars from ₹1 Cr to ₹10 Cr. Tell us what moves you.</p>
+          <p class="phone"><a href="tel:+918282828288">Call us: +91 82828 28288</a></p>
+          <p>We'd be delighted to help you find the right car.</p>
+        </div>
+        <form class="inquiry-form" id="inquiry-form">
+          <div class="field">
+            <label for="name">Your name</label>
+            <input id="name" name="name" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone number</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+          </div>
+          <div class="field">
+            <label for="vehicle">I'm interested in</label>
+            <select id="vehicle" name="vehicle">
+              <option value="">Help me find the right car</option>
+              <option>Porsche 911 Carrera</option>
+              <option>Ferrari Roma</option>
+              <option>Range Rover Autobiography</option>
+              <option>Bentley Continental GT</option>
+              <option>Aston Martin Vantage</option>
+              <option>Mercedes-Benz G-Class</option>
+            </select>
+          </div>
+          <div class="field field-full">
+            <label for="message">A note for our team <span>(optional)</span></label>
+            <textarea id="message" name="message" rows="3" placeholder="Tell us a little about what you're looking for"></textarea>
+          </div>
+          <button class="button form-submit" type="submit">Request a conversation ↗</button>
+          <p class="form-note">Preview form only: your details stay in this browser and are not sent to AVS.</p>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <a class="brand" href="#home" aria-label="AVS home"><span class="brand-mark"><span>A</span></span><span>AVS</span></a>
+      <span>© 2026 AVS. ALL RIGHTS RESERVED.</span>
+      <div class="footer-links"><a href="#collection">Collection</a><a href="#contact">Contact</a><a href="#home">Instagram ↗</a></div>
+    </div>
+  </footer>
+  <button class="concierge-launcher" id="concierge-launcher" type="button" aria-haspopup="dialog" aria-controls="concierge-dialog">✦ &nbsp; AI concierge</button>
+  <dialog class="concierge-dialog" id="concierge-dialog" aria-labelledby="concierge-title">
+    <div class="concierge-header">
+      <div>
+        <div class="concierge-kicker">Your personal guide</div>
+        <h2 class="concierge-title" id="concierge-title">The AVS concierge</h2>
+        <p class="concierge-subtitle">A thoughtful place to begin your search.</p>
+      </div>
+      <button class="concierge-close" id="concierge-close" type="button" aria-label="Close concierge">×</button>
+    </div>
+    <div class="concierge-thread" id="concierge-thread" role="log" aria-live="polite" aria-relevant="additions">
+      <div class="concierge-message assistant"><p>Welcome. Tell me how you like to drive, and I’ll help you explore the AVS collection. I can discuss listed specifications, while the AVS team confirms current availability and pricing.</p></div>
+    </div>
+    <div class="concierge-suggestions" id="concierge-suggestions">
+      <button class="concierge-suggestion" type="button">A refined car for long drives</button>
+      <button class="concierge-suggestion" type="button">Compare the sports cars</button>
+      <button class="concierge-suggestion" type="button">I’m looking for a luxury SUV</button>
+    </div>
+    <form class="concierge-form" id="concierge-form">
+      <input class="concierge-input" id="concierge-input" name="message" maxlength="1000" autocomplete="off" placeholder="Tell me what you have in mind…" aria-label="Message the AVS concierge" required>
+      <button class="concierge-send" id="concierge-send" type="submit" aria-label="Send message">↑</button>
+    </form>
+    <p class="concierge-disclosure">AI-generated guidance, based on the cars shown here. Messages are processed by OpenAI to reply. Please don’t share sensitive personal information.</p>
+  </dialog>
+  <script>
+    const filterButtons = document.querySelectorAll(".filter");
+    const cars = document.querySelectorAll(".car-card");
+    const collectionCount = document.querySelector(".collection-count");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selected = button.dataset.filter;
+        let visibleCount = 0;
+        filterButtons.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle("active", active);
+          item.setAttribute("aria-pressed", String(active));
+        });
+        cars.forEach((car) => {
+          const visible = selected === "all" || car.dataset.category === selected;
+          car.hidden = !visible;
+          if (visible) visibleCount += 1;
+        });
+        collectionCount.textContent = `Showing ${visibleCount} ${selected === "all" ? "automobiles" : `${button.textContent.toLowerCase()} available`}`;
+      });
+    });
+
+    const menuButton = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    const closeMenu = () => {
+      navLinks.classList.remove("open");
+      menuButton.setAttribute("aria-expanded", "false");
+      menuButton.setAttribute("aria-label", "Open navigation");
+    };
+    menuButton.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(open));
+      menuButton.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+    });
+    navLinks.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    const vehicleSelect = document.querySelector("#vehicle");
+    document.querySelectorAll("[data-enquire]").forEach((link) => {
+      link.addEventListener("click", () => {
+        vehicleSelect.value = link.dataset.enquire;
+      });
+    });
+
+    document.querySelector("#inquiry-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      document.querySelector("#form-status").textContent =
+        "Thanks for your interest. This preview does not send enquiries yet; please call AVS to speak with the team.";
+    });
+
+    const conciergeDialog = document.querySelector("#concierge-dialog");
+    const conciergeLauncher = document.querySelector("#concierge-launcher");
+    const conciergeClose = document.querySelector("#concierge-close");
+    const conciergeForm = document.querySelector("#concierge-form");
+    const conciergeInput = document.querySelector("#concierge-input");
+    const conciergeSend = document.querySelector("#concierge-send");
+    const conciergeThread = document.querySelector("#concierge-thread");
+    const conciergeSuggestions = document.querySelector("#concierge-suggestions");
+    const conciergeEndpoint = document.querySelector('meta[name="avs-concierge-endpoint"]').content.trim() || "/api/concierge";
+    const conciergeMessages = [];
+
+    const appendConciergeMessage = (role, text) => {
+      const message = document.createElement("div");
+      message.className = `concierge-message ${role}`;
+      const paragraph = document.createElement("p");
+      paragraph.textContent = text;
+      message.append(paragraph);
+      conciergeThread.append(message);
+      conciergeThread.scrollTop = conciergeThread.scrollHeight;
+      return message;
+    };
+
+    conciergeLauncher.addEventListener("click", () => {
+      conciergeDialog.showModal();
+      conciergeInput.focus();
+    });
+    conciergeClose.addEventListener("click", () => conciergeDialog.close());
+    conciergeDialog.addEventListener("close", () => conciergeLauncher.focus());
+    conciergeSuggestions.querySelectorAll("button").forEach((button) => {
+      button.addEventListener("click", () => {
+        conciergeInput.value = button.textContent.trim();
+        conciergeForm.requestSubmit();
+      });
+    });
+    conciergeForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const text = conciergeInput.value.trim();
+      if (!text || conciergeSend.disabled) return;
+
+      conciergeMessages.push({ role: "user", content: text });
+      appendConciergeMessage("user", text);
+      conciergeInput.value = "";
+      conciergeSend.disabled = true;
+      conciergeInput.disabled = true;
+      conciergeSuggestions.querySelectorAll("button").forEach((button) => { button.disabled = true; });
+      const thinking = appendConciergeMessage("assistant", "Considering your brief…");
+
+      try {
+        const response = await fetch(conciergeEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: conciergeMessages.slice(-10) })
+        });
+        const result = await response.json();
+        if (!response.ok) {
+          thinking.querySelector("p").textContent = typeof result.error === "string"
+            ? result.error
+            : "The concierge is unavailable right now. Please call AVS for assistance.";
+        } else if (typeof result.reply !== "string" || !result.reply.trim()) {
+          thinking.querySelector("p").textContent = "The concierge could not prepare a reply. Please try again.";
+        } else {
+          conciergeMessages.push({ role: "assistant", content: result.reply });
+          thinking.querySelector("p").textContent = result.reply;
+        }
+      } catch {
+        thinking.querySelector("p").textContent = "The concierge is unavailable right now. Please call AVS for assistance.";
+      } finally {
+        conciergeSend.disabled = false;
+        conciergeInput.disabled = false;
+        conciergeSuggestions.querySelectorAll("button").forEach((button) => { button.disabled = false; });
+        conciergeInput.focus();
+      }
+    });
+  </script>
+</body>
+</html>
