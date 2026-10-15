@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10110f">
-  <meta name="description" content="A considered collection of the world's finest automobiles, curated by AVS.">
+  <meta name="description" content="Explore the AVS luxury car collection at your own pace. Our team is happy to help you find a car that feels right.">
   <title>AVS — Luxury automobiles</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -152,29 +152,17 @@
     .promise-item p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.8; }
 
     .contact { padding: 88px 0; background: #1a1b17; }
-    .contact-layout { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(40px, 8vw, 110px); align-items: start; }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 8vw, 110px); align-items: center; }
     .contact h2 { margin: 12px 0 16px; font: 500 clamp(34px, 4vw, 48px)/1.1 var(--serif); }
-    .contact-copy > p { color: var(--muted); font-size: 12px; line-height: 1.8; }
-    .contact-copy .phone { color: var(--ink); font-size: 13px; }
-    .inquiry-form { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .field { display: grid; gap: 8px; }
-    .field-full { grid-column: 1 / -1; }
-    .field label { color: #c8c4bb; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
-    .field input, .field select, .field textarea {
-      width: 100%;
-      min-height: 46px;
-      padding: 12px 13px;
-      border: 1px solid var(--line);
-      border-radius: 0;
-      color: var(--ink);
-      background: #111210;
-      font-size: 13px;
-    }
-    .field textarea { min-height: 100px; resize: vertical; }
-    .field select { color-scheme: dark; }
-    .form-submit { justify-self: start; }
-    .form-note, .form-status { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
-    .form-status { min-height: 1.7em; color: var(--gold); }
+    .contact-copy > p { max-width: 460px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .contact-call { display: inline-flex; align-items: center; gap: 12px; margin: 12px 0 16px; color: var(--gold); font-size: 13px; }
+    .contact-call span:nth-child(2) { color: var(--ink); }
+    .contact-note { font-size: 11px !important; }
+    .contact-card { padding: clamp(28px, 5vw, 52px); border: 1px solid rgba(199,166,106,.5); background: #22231f; }
+    .contact-card-icon { display: block; margin-bottom: 27px; color: var(--gold); font-size: 24px; }
+    .contact-card .eyebrow { max-width: 260px; line-height: 1.8; }
+    .contact-card h3 { max-width: 350px; margin: 16px 0 13px; font: 500 clamp(25px, 3vw, 34px)/1.15 var(--serif); }
+    .contact-card > p:not(.eyebrow) { max-width: 340px; margin-bottom: 26px; color: var(--muted); font-size: 12px; line-height: 1.8; }
 
     footer { padding: 30px 0; color: #8c8a83; font-size: 10px; }
     .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
@@ -282,8 +270,6 @@
       .promise-grid { grid-template-columns: 1fr; gap: 29px; margin-top: 45px; }
       .contact { padding: 68px 0; }
       .contact-layout { grid-template-columns: 1fr; gap: 28px; }
-      .inquiry-form { grid-template-columns: 1fr; }
-      .field-full { grid-column: auto; }
       .footer-inner { align-items: flex-start; flex-direction: column; }
       .footer-links { flex-wrap: wrap; }
       .concierge-launcher { right: 16px; bottom: 16px; min-height: 50px; padding: 0 17px; }
@@ -306,42 +292,42 @@
         <a href="#experience">Our world</a>
         <a href="#promise">The AVS way</a>
       </div>
-      <a class="nav-cta" href="#contact">Speak with an advisor</a>
+      <a class="nav-cta" href="#contact">Talk with our team</a>
     </nav>
   </header>
 
   <main>
     <section class="hero" id="home">
       <div class="wrap hero-content">
-        <div class="eyebrow">The art of the exceptional</div>
-        <h1>For the love<br>of <em>the drive.</em></h1>
-        <p class="hero-copy">A considered collection of the world's finest automobiles. Curated for those who know the difference.</p>
+        <div class="eyebrow">Welcome to AVS</div>
+        <h1>Your next great drive<br>starts <em>right here.</em></h1>
+        <p class="hero-copy">Have a favourite in mind, or just beginning to explore? Take your time, browse the collection, and let us help you find a car that feels right.</p>
         <div class="hero-actions">
-          <a class="button" href="#collection">Explore the collection <span aria-hidden="true">&nbsp; ↗</span></a>
-          <a class="text-link" href="#experience">Discover AVS <span aria-hidden="true">→</span></a>
+          <a class="button" href="#collection">Find your next car <span aria-hidden="true">&nbsp; ↗</span></a>
+          <a class="text-link" href="#contact">Talk with us <span aria-hidden="true">→</span></a>
         </div>
       </div>
-      <a class="hero-scroll" href="#collection">Scroll to explore</a>
+      <a class="hero-scroll" href="#collection">Explore at your pace</a>
       <div class="hero-index">01 / 03 &nbsp; THE GRAND TOURER</div>
     </section>
 
     <section class="intro wrap">
       <div>
-        <div class="eyebrow">A different kind of drive</div>
-        <h2>Not just a car.<br>A point of view.</h2>
+        <div class="eyebrow">A little help goes a long way</div>
+        <h2>Finding a car<br>should feel good.</h2>
       </div>
-      <p>Some things are chosen. Others simply feel inevitable. At AVS, every automobile is selected for its character, its craft, and the feeling it leaves long after the road ends.</p>
+      <p>There’s no right way to begin. Browse a little, follow what catches your eye, or ask us a question. We’re here to make your search feel easy, personal, and entirely at your pace.</p>
     </section>
 
     <section class="collection" id="collection">
       <div class="wrap">
         <div class="section-heading">
           <div>
-            <div class="eyebrow">Luxury cars from ₹1 Cr to ₹10 Cr</div>
-            <h2>The collection</h2>
+            <div class="eyebrow">Take a look around</div>
+            <h2>Find your next car</h2>
           </div>
-          <div class="filters" role="group" aria-label="Filter cars">
-            <button class="filter active" type="button" data-filter="all" aria-pressed="true">All cars</button>
+          <div class="filters" role="group" aria-label="Filter vehicles by style">
+            <button class="filter active" type="button" data-filter="all" aria-pressed="true">All vehicles</button>
             <button class="filter" type="button" data-filter="grand-tourer" aria-pressed="false">Grand tourers</button>
             <button class="filter" type="button" data-filter="sports" aria-pressed="false">Sports</button>
             <button class="filter" type="button" data-filter="suv" aria-pressed="false">SUV</button>
@@ -351,37 +337,34 @@
           <article class="car-card" data-category="grand-tourer">
             <div class="car-image">
               <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1000&q=85" alt="Silver Porsche 911 on a mountain road" loading="lazy">
-              <span class="badge">Just arrived</span>
             </div>
             <div class="car-info">
               <div class="car-type">Grand tourer</div>
               <h3>Porsche 911 Carrera</h3>
               <div class="car-specs"><span>2024</span><span>Automatic</span><span>3.0L</span></div>
-              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Porsche 911 Carrera">Enquire ↗</a></div>
+              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Porsche 911 Carrera">Ask us about it ↗</a></div>
             </div>
           </article>
           <article class="car-card" data-category="sports">
             <div class="car-image">
               <img src="https://images.unsplash.com/photo-1614200187524-dc4b892acf16?auto=format&fit=crop&w=1000&q=85" alt="Sleek red luxury sports car" loading="lazy">
-              <span class="badge">Rare find</span>
             </div>
             <div class="car-info">
               <div class="car-type">Pure sports</div>
               <h3>Ferrari Roma</h3>
               <div class="car-specs"><span>2023</span><span>Automatic</span><span>3.9L V8</span></div>
-              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Ferrari Roma">Enquire ↗</a></div>
+              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Ferrari Roma">Ask us about it ↗</a></div>
             </div>
           </article>
           <article class="car-card" data-category="suv">
             <div class="car-image">
               <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1000&q=85" alt="Luxury SUV parked in a dramatic landscape" loading="lazy">
-              <span class="badge">AVS select</span>
             </div>
             <div class="car-info">
               <div class="car-type">Sport utility</div>
               <h3>Range Rover Autobiography</h3>
               <div class="car-specs"><span>2024</span><span>Automatic</span><span>4.4L V8</span></div>
-              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Range Rover Autobiography">Enquire ↗</a></div>
+              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Range Rover Autobiography">Ask us about it ↗</a></div>
             </div>
           </article>
           <article class="car-card" data-category="grand-tourer">
@@ -392,7 +375,7 @@
               <div class="car-type">Grand tourer</div>
               <h3>Bentley Continental GT</h3>
               <div class="car-specs"><span>2023</span><span>Automatic</span><span>4.0L V8</span></div>
-              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Bentley Continental GT">Enquire ↗</a></div>
+              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Bentley Continental GT">Ask us about it ↗</a></div>
             </div>
           </article>
           <article class="car-card" data-category="sports">
@@ -403,7 +386,7 @@
               <div class="car-type">Pure sports</div>
               <h3>Aston Martin Vantage</h3>
               <div class="car-specs"><span>2024</span><span>Automatic</span><span>4.0L V8</span></div>
-              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Aston Martin Vantage">Enquire ↗</a></div>
+              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Aston Martin Vantage">Ask us about it ↗</a></div>
             </div>
           </article>
           <article class="car-card" data-category="suv">
@@ -414,11 +397,11 @@
               <div class="car-type">Sport utility</div>
               <h3>Mercedes-Benz G-Class</h3>
               <div class="car-specs"><span>2024</span><span>Automatic</span><span>4.0L V8</span></div>
-              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Mercedes-Benz G-Class">Enquire ↗</a></div>
+              <div class="car-foot"><span class="price">Price on request</span><a class="details-link" href="#contact" data-enquire="Mercedes-Benz G-Class">Ask us about it ↗</a></div>
             </div>
           </article>
         </div>
-        <p class="collection-count" aria-live="polite">Showing all 6 automobiles</p>
+        <p class="collection-count" aria-live="polite">Showing all 6 cars in the collection</p>
       </div>
     </section>
 
@@ -426,34 +409,34 @@
       <div class="experience-photo" role="img" aria-label="A luxury car on an open road"></div>
       <div class="experience-copy">
         <div>
-          <div class="eyebrow">More than ownership</div>
-          <h2>The road is yours.<br>So is the feeling.</h2>
-          <p>From the first conversation to the first open road, your experience is shaped around you. Personal introductions, considered guidance, and a level of care that never clocks off.</p>
-          <a class="button" href="#contact">Experience AVS ↗</a>
+          <div class="eyebrow">Here when you need us</div>
+          <h2>Good guidance.<br>No pressure.</h2>
+          <p>Not sure which car is right for you? Tell us what matters—your kind of drive, the space you need, or simply what you love. We’ll help you explore your options, one step at a time.</p>
+          <a class="button" href="#contact">We’re happy to help ↗</a>
         </div>
       </div>
     </section>
 
     <section class="promise" id="promise">
       <div class="wrap">
-        <div class="eyebrow">The AVS way</div>
-        <h2>Discerning by nature.<br>Personal by design.</h2>
-        <p>Every detail matters. That's why the experience is as thoughtfully considered as the cars themselves.</p>
+        <div class="eyebrow">A more personal way to explore</div>
+        <h2>Start wherever<br>you are.</h2>
+        <p>Know exactly what you want? Still figuring it out? Either way, we’ll make it easy to take the next step.</p>
         <div class="promise-grid">
           <article class="promise-item">
             <span class="number">01</span>
-            <h3>Personally curated</h3>
-            <p>Each car is hand-selected for provenance, condition, and the kind of character you can't put on a spec sheet.</p>
+            <h3>A collection to explore</h3>
+            <p>Discover six distinctive cars, with the model year, transmission, and engine details shown up front.</p>
           </article>
           <article class="promise-item">
             <span class="number">02</span>
-            <h3>Quietly effortless</h3>
-            <p>From tailored finance to delivery at your door, we take care of the details before you have to ask.</p>
+            <h3>Clear, helpful answers</h3>
+            <p>Prices are available on request. Our team can help with current pricing and availability.</p>
           </article>
           <article class="promise-item">
             <span class="number">03</span>
-            <h3>Always in good company</h3>
-            <p>Your relationship with AVS begins with a car. It never has to end there.</p>
+            <h3>A real person to talk to</h3>
+            <p>Call us when you’re ready. You don’t need to fill out a form or know exactly what to ask.</p>
           </article>
         </div>
       </div>
@@ -462,45 +445,19 @@
     <section class="contact" id="contact">
       <div class="wrap contact-layout">
         <div class="contact-copy">
-          <div class="eyebrow">Your next chapter</div>
-          <h2>Let's find your drive.</h2>
-          <p>Luxury cars from ₹1 Cr to ₹10 Cr. Tell us what moves you.</p>
-          <p class="phone"><a href="tel:+918282828288">Call us: +91 82828 28288</a></p>
-          <p>We'd be delighted to help you find the right car.</p>
+          <div class="eyebrow">Questions are always welcome</div>
+          <h2>We’re here to help.</h2>
+          <p id="contact-interest">Ask us about a car, check current pricing or availability, or just tell us what you’re looking for. We’ll be glad to help you find a place to start.</p>
+          <a class="contact-call" href="tel:+918282828288">Call our team <span>+91 82828 28288</span><span aria-hidden="true">↗</span></a>
+          <p class="contact-note">Prefer to keep browsing? That’s perfectly fine too—there’s no rush.</p>
         </div>
-        <form class="inquiry-form" id="inquiry-form">
-          <div class="field">
-            <label for="name">Your name</label>
-            <input id="name" name="name" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="email">Email address</label>
-            <input id="email" name="email" type="email" autocomplete="email" required>
-          </div>
-          <div class="field">
-            <label for="phone">Phone number</label>
-            <input id="phone" name="phone" type="tel" autocomplete="tel" required>
-          </div>
-          <div class="field">
-            <label for="vehicle">I'm interested in</label>
-            <select id="vehicle" name="vehicle">
-              <option value="">Help me find the right car</option>
-              <option>Porsche 911 Carrera</option>
-              <option>Ferrari Roma</option>
-              <option>Range Rover Autobiography</option>
-              <option>Bentley Continental GT</option>
-              <option>Aston Martin Vantage</option>
-              <option>Mercedes-Benz G-Class</option>
-            </select>
-          </div>
-          <div class="field field-full">
-            <label for="message">A note for our team <span>(optional)</span></label>
-            <textarea id="message" name="message" rows="3" placeholder="Tell us a little about what you're looking for"></textarea>
-          </div>
-          <button class="button form-submit" type="submit">Request a conversation ↗</button>
-          <p class="form-note">Preview form only: your details stay in this browser and are not sent to AVS.</p>
-          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-        </form>
+        <div class="contact-card" aria-label="How to get in touch">
+          <span class="contact-card-icon" aria-hidden="true">✦</span>
+          <p class="eyebrow">A friendly conversation is a good place to start</p>
+          <h3>Tell us what you have in mind.</h3>
+          <p>From a question about one of the cars to help narrowing down your options, our team is just a phone call away.</p>
+          <a class="button" href="tel:+918282828288">Give us a call <span aria-hidden="true">&nbsp; ↗</span></a>
+        </div>
       </div>
     </section>
   </main>
@@ -516,25 +473,25 @@
   <dialog class="concierge-dialog" id="concierge-dialog" aria-labelledby="concierge-title">
     <div class="concierge-header">
       <div>
-        <div class="concierge-kicker">Your personal guide</div>
-        <h2 class="concierge-title" id="concierge-title">The AVS smart guide</h2>
-        <p class="concierge-subtitle">Find a car in the AVS collection to match your brief.</p>
+        <div class="concierge-kicker">No pressure, just a place to start</div>
+        <h2 class="concierge-title" id="concierge-title">Let’s find your kind of drive</h2>
+        <p class="concierge-subtitle">Tell me what you like, and I’ll help you explore.</p>
       </div>
       <button class="concierge-close" id="concierge-close" type="button" aria-label="Close concierge">×</button>
     </div>
     <div class="concierge-thread" id="concierge-thread" role="log" aria-live="polite" aria-relevant="additions">
-      <div class="concierge-message assistant"><p>Welcome. Tell me what you’re looking for and I’ll match your preferences to the cars in our collection. I can help with body styles and listed specifications; the AVS team can confirm current availability and pricing.</p></div>
+      <div class="concierge-message assistant"><p>Welcome to AVS! You don’t need to know exactly what you’re looking for. Tell me what kind of drive you enjoy, or ask about any car in the collection, and we can start there. I can share the details listed here; our team can help with current pricing and availability.</p></div>
     </div>
     <div class="concierge-suggestions" id="concierge-suggestions">
-      <button class="concierge-suggestion" type="button">A refined car for long drives</button>
-      <button class="concierge-suggestion" type="button">Compare the sports cars</button>
-      <button class="concierge-suggestion" type="button">I’m looking for a luxury SUV</button>
+      <button class="concierge-suggestion" type="button">I’m just starting to look</button>
+      <button class="concierge-suggestion" type="button">Help me find a comfortable car</button>
+      <button class="concierge-suggestion" type="button">I’d love to explore SUVs</button>
     </div>
     <form class="concierge-form" id="concierge-form">
-      <input class="concierge-input" id="concierge-input" name="message" maxlength="1000" autocomplete="off" placeholder="Tell me what you have in mind…" aria-label="Message the AVS concierge" required>
+      <input class="concierge-input" id="concierge-input" name="message" maxlength="1000" autocomplete="off" placeholder="What kind of car are you dreaming of?" aria-label="Message the AVS guide" required>
       <button class="concierge-send" id="concierge-send" type="submit" aria-label="Send message">↑</button>
     </form>
-    <p class="concierge-disclosure">A simple, on-page guide matches your words to the listed collection. Messages stay in your browser and aren’t sent to an AI service. Availability and pricing are confirmed by AVS.</p>
+    <p class="concierge-disclosure">This simple guide matches your words to the cars shown here. Your messages stay in your browser. For current pricing and availability, please speak with AVS.</p>
   </dialog>
   <script>
     const filterButtons = document.querySelectorAll(".filter");
@@ -555,7 +512,14 @@
           car.hidden = !visible;
           if (visible) visibleCount += 1;
         });
-        collectionCount.textContent = `Showing ${visibleCount} ${selected === "all" ? "automobiles" : `${button.textContent.toLowerCase()} available`}`;
+        const categoryLabel = selected === "all"
+          ? "cars"
+          : selected === "sports"
+            ? "sports cars"
+            : selected === "suv"
+              ? "SUVs"
+              : button.textContent.toLowerCase();
+        collectionCount.textContent = `Showing ${visibleCount} ${categoryLabel} in the collection`;
       });
     });
 
@@ -576,17 +540,11 @@
       if (event.key === "Escape") closeMenu();
     });
 
-    const vehicleSelect = document.querySelector("#vehicle");
+    const contactInterest = document.querySelector("#contact-interest");
     document.querySelectorAll("[data-enquire]").forEach((link) => {
       link.addEventListener("click", () => {
-        vehicleSelect.value = link.dataset.enquire;
+        contactInterest.textContent = `Interested in the ${link.dataset.enquire}? Call us and we’ll be glad to answer your questions, discuss current pricing, and check availability.`;
       });
-    });
-
-    document.querySelector("#inquiry-form").addEventListener("submit", (event) => {
-      event.preventDefault();
-      document.querySelector("#form-status").textContent =
-        "Thanks for your interest. This preview does not send enquiries yet; please call AVS to speak with the team.";
     });
 
     const conciergeDialog = document.querySelector("#concierge-dialog");
@@ -613,7 +571,7 @@
       const isComparison = conciergeHasAny(text, ["compare", "comparison", "difference", "versus", " vs "]);
 
       if (conciergeHasAny(text, ["price", "cost", "budget", "financ", "payment", "available", "availability", "in stock"])) {
-        return "The listings show prices on request, and I can’t verify live availability or financing. Please contact the AVS team for current details.";
+        return "Prices are available on request, and I can’t check live availability or arrange financing here. Call the AVS team and we’ll be happy to help with current details.";
       }
 
       const requestedCategory = conciergeHasAny(text, ["suv", "family", "space", "utility"])
@@ -640,7 +598,7 @@
       }
 
       if (mentionedCars.length) {
-          return `${conciergeDescribeCar(mentionedCars[0])} The listing shows price on request; please contact AVS to confirm current availability and details.`;
+          return `${conciergeDescribeCar(mentionedCars[0])} The listing shows price on request. Call the AVS team for current availability and more details—we’ll be happy to help.`;
       }
 
       const requestedEngine = text.match(/\b(?:\d\.\d\s?l?|v8|v12)\b/);
@@ -649,7 +607,11 @@
         : [];
       const recommendations = engineMatches.length ? engineMatches : matchingCars;
       if (recommendations.length) {
-        return `Based on your note, take a look at:\n${recommendations.slice(0, 3).map(conciergeDescribeCar).join("\n")}\nWhich one would you like to explore? AVS can confirm live availability and pricing.`;
+        return `Based on what you shared, you might like:\n${recommendations.slice(0, 3).map(conciergeDescribeCar).join("\n")}\nWould you like to explore one of these? Our team can help with current availability and pricing.`;
+      }
+
+      if (conciergeHasAny(text, ["starting to look", "just looking", "not sure", "not certain", "help me choose"])) {
+        return "That’s a lovely place to start. You don’t need to have it all figured out. Do you picture yourself in a sporty car, a relaxed grand tourer, or an SUV? I can help you explore from there.";
       }
 
       if (conciergeHasAny(text, ["hello", "hi", "hey", "good morning", "good afternoon"])) {
